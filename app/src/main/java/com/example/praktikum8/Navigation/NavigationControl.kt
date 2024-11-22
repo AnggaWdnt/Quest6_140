@@ -16,10 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.example.praktikum8.ui.model.Mahasiswa
 import com.example.praktikum8.ui.view.screen.MatakuliahView
+import com.example.praktikum8.ui.view.screen.RencanaStudyView
 import com.example.praktikum8.ui.view.screen.TampilView
+import com.example.praktikum8.ui.view.viewmodel.RencanaStudyViewModel
 
 
-enum class Halaman{
+enum class Halaman {
     Splash,
     Mahasiswa,
     Matakuliah,
@@ -27,54 +29,44 @@ enum class Halaman{
 }
 
 @Composable
-fun NavigationControl (
+fun MahasiswaApp(
     modifier: Modifier = Modifier,
-    viewModel: MahasiswaViewModel = viewModel(),
+    mahasiswaViewModel: MahasiswaViewModel = viewModel(),
+    krsViewModel: RencanaStudyViewModel = viewModel(),//
     navController: NavHostController = rememberNavController()
-){
-    val uistate by viewModel.stateUI.collectAsState()
+) {
+    val mahasiswaUiState = mahasiswaViewModel.mahasiswaUiState.collectAsState().value//
+    val rencanaUiState = krsViewModel.krsStateUi.collectAsState().value
+
     NavHost(
         navController = navController,
         startDestination = Halaman.Splash.name,
         modifier = Modifier.padding()
-    ){
-        composable(
-            route = Halaman.Splash.name
-        ){
-            SplashView(
-                onMulaiButton = {
-                    navController.navigate(Halaman.Mahasiswa.name)
+    ) {
+        composable(route = Halaman.Splash.name) {
+            SplashView(onMulaiButton = {
+                navController.navigate(Halaman.Mahasiswa.name)
+            })
+        }
+        composable(route = Halaman.Mahasiswa.name) {
+            MahasiswaFormView(
+                onSubmitButtonClicked = {
+                    mahasiswaViewModel.saveDataMahasiswa(it)
+                    navController.navigate(Halaman.Matakuliah.name)
+                },
+                onBackButtonClicked = {
+                    navController.popBackStack()
                 }
             )
         }
-        composable(
-            route = Halaman.Mahasiswa.name
-        ){
-            MahasiswaFormView(
+        composable(route = Halaman.Matakuliah.name) {
+            RencanaStudyView(
+                mahasiswa = mahasiswaUiState,
                 onSubmitButtonClicked = {
-                    viewModel.setMahasiswa(it)
-                    navController.navigate(Halaman.Matakuliah.name)},
-                onBackButtonClicked = {navController.popBackStack()}
-            )
-        }
-        composable(
-            route = Halaman.Matakuliah.name
-        ){
-            MatakuliahView(
-                uiState = uistate,
-                onSimpanButtonClicked = {
-                    viewModel.setMatakuliah(it)
+                    krsViewModel.saveDataKRS(it)
                     navController.navigate(Halaman.Tampil.name)
                 },
-            )
-        }
-        composable(
-            route = Halaman.Tampil.name
-        ){
-            TampilView(
-                uiState = uistate,
-                onBackButtonClicked = {navController.popBackStack()},
-                onResetButtonClicked = {navController.navigate(Halaman.Splash.name)}
+                onBackButtonClicked = { navController.popBackStack() },
             )
         }
     }
