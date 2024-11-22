@@ -1,4 +1,4 @@
-package com.example.praktikum8.data
+package com.example.praktikum8.ui.data
 
 object MataKuliah {
     val options = listOf(
