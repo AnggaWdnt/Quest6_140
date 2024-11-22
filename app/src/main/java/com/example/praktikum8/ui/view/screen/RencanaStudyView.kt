@@ -20,5 +20,5 @@ fun RencanaStudyView(
         )
     }
     var checked by remember { mutableStateOf(false) }
-
+    var pilihanKelas by remember { mutableStateOf("") }
 }
