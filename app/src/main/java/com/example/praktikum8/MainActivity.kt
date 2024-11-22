@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.praktikum8.Navigation.NavigationControl
+import com.example.praktikum8.Navigation.MahasiswaApp
 import com.example.praktikum8.ui.theme.Praktikum8Theme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Praktikum8Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    NavigationControl(
+                    MahasiswaApp(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
