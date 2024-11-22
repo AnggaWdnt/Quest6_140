@@ -1,28 +1,41 @@
 package com.example.praktikum8.ui.view.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.praktikum8.R
 import com.example.praktikum8.ui.model.Mahasiswa
+import com.example.praktikum8.ui.model.RencanaStudi
 import com.example.praktikum8.ui.view.screen.part.NavUniv
 
 @Composable
 fun TampilView(
-    uiState: Mahasiswa,
+    uiStateMhs: Mahasiswa,
+    uiStateMK: RencanaStudi,
     onBackButtonClicked: () -> Unit = {},
     onResetButtonClicked: () -> Unit = {}
 ) {
@@ -31,7 +44,28 @@ fun TampilView(
             .fillMaxSize().background(colorResource(id = R.color.primary)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        NavUniv()
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ){
+            Image(
+                painter = painterResource(id =  R.drawable.umy),
+                contentDescription = "",
+                modifier = Modifier
+                    .clip(shape = CircleShape)
+                    .size(50.dp)
+            )
+            Box {
+                Icon(
+                    imageVector = Icons.Filled.Notifications,
+                    contentDescription = "",
+                    tint = Color.White
+                )
+            }
+        }
         Column (
             modifier = Modifier.fillMaxSize()
                 .background(Color.White)
@@ -44,25 +78,26 @@ fun TampilView(
             ) {
                 Column (
                 ){
-                    Text("Nim:")
-                    Text(uiState.nim)
-                    Text("Nama:")
-                    Text(uiState.nama)
+                    Text("Nim:", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Text(uiStateMhs.nim)
+                    Text("Nama:", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Text(uiStateMhs.nama)
                 }
                 Column (
                 ){
-                    Text(uiState.email)
+                    Text(text = "Email", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Text(uiStateMhs.email)
                 }
             }
             Spacer(modifier = Modifier.padding(16.dp))
             Column (
                 modifier = Modifier.fillMaxWidth()
             ){
-                Text("Matakuliah yang diambil:")
-                Text(uiState.namaMatakuliah)
+                Text("Matakuliah yang diambli:",  fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                Text(uiStateMK.namaMK)
                 Row(){
-                    Text(text = "Kelas:")
-                    Text(uiState.kelas)
+                    Text(text = "Kelas:", fontSize = 16.sp)
+                    Text(uiStateMK.kelas, fontSize = 16.sp)
                 }
             }
             Spacer(modifier = Modifier.padding(32.dp))
