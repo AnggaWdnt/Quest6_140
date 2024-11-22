@@ -1,4 +1,4 @@
-package com.example.praktikum8.data
+package com.example.praktikum8.ui.data
 
 object RuangKelas {
     val kelas = listOf(
@@ -6,5 +6,4 @@ object RuangKelas {
         "B",
         "C",
         "D")
-
 }
