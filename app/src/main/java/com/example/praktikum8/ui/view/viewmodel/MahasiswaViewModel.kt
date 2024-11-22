@@ -13,7 +13,7 @@ class MahasiswaViewModel: ViewModel(){
 
     val mahasiswaUiState: StateFlow<Mahasiswa> = _mahasiswasUiState.asStateFlow()
 
-    fun setMahasiswa(ls: MutableList<String>){
+    fun saveDataMahasiswa(ls: MutableList<String>){
         _mahasiswasUiState.update { statusSaatIni ->
             statusSaatIni.copy(
                 nim = ls[0],
