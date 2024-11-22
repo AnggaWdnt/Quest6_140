@@ -48,14 +48,19 @@ fun MahasiswaFormView(
     onSubmitButtonClicked: (MutableList<String>) -> Unit,
     onBackButtonClicked: ()-> Unit
 ) {
-    var nim by remember { mutableStateOf("") }
     var nama by remember { mutableStateOf("") }
+    var nim by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
 
     val listData: MutableList<String> = mutableListOf(nim,nama,email)
     Column(
-        modifier = Modifier.fillMaxSize().background(color = colorResource(id = R.color.primary)),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                color = colorResource
+                    (id = R.color.primary
+                            )
+            ), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.padding(top = 16.dp))
         Row(
@@ -86,13 +91,20 @@ fun MahasiswaFormView(
         }
         Spacer(modifier = Modifier.padding(top = 16.dp))
         Box(
-            modifier = Modifier.background(
+            modifier = Modifier
+                .background(
                 Color.White,
-                shape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp)
-            ).fillMaxSize()
+                shape = RoundedCornerShape(
+                    topStart = 15.dp,
+                    topEnd = 15.dp
+                )
+            ).
+                fillMaxSize(),
         ) {
             Column(
-                modifier = Modifier.fillMaxSize().padding(16.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
@@ -105,6 +117,7 @@ fun MahasiswaFormView(
                     fontWeight = FontWeight.Light
                 )
 
+                Spacer(modifier = Modifier.padding(8.dp))
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = nim,
@@ -123,6 +136,7 @@ fun MahasiswaFormView(
                     singleLine = true,
                     shape = RoundedCornerShape(50.dp)
                 )
+                Spacer(modifier = Modifier.padding(4.dp))
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = nama,
@@ -141,6 +155,7 @@ fun MahasiswaFormView(
                     singleLine = true,
                     shape = RoundedCornerShape(50.dp)
                 )
+                Spacer(modifier = Modifier.padding(4.dp))
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = email,
